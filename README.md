@@ -24,4 +24,3 @@ Challenges:
 1. try to re-write count method with pure functions
 2. try to find better criteria to stop looping
 3. try to use Graph entity
-4. try to rewrite parseNodes method on consuming set of nodes, not pairs
