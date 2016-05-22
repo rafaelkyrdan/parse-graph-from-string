@@ -5,8 +5,12 @@ Project for self-education.
 It is algorithmic exercise on parsing string.
 Input is a string which represents list of graph.
 The graph is an abstract data type, consists of a finite set of nodes.
-Example of input string: `1-2,1-4,2-4,4-5,5-6,6-1,8-9,10`.
-Example of graph: ![image](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Directed.svg/125px-Directed.svg.png)
+In this example we assume that these graph are directed graph, like on picture.
+Example of the input string: `1-2,1-4,2-4,4-5,5-6,6-1,8-9,10`.
+Example of the graph: 
+
+![image](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Directed.svg/125px-Directed.svg.png)
+
 Task: calculate how many graph is in the string?
 So first we parse the string, second step we build nodes and their references between each other.
 Last step we go through the sequence and calculate how many graph is in the sequence.
