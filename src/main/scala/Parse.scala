@@ -3,7 +3,7 @@ package main.scala
 import scala.collection.mutable.{Map => MMap}
 
 /**
-  * Solution to task described in the README.md
+  * The task described in the README.md
   *
   */
 
@@ -46,23 +46,39 @@ object Parse {
 
   def parseNodes(ls: Array[Array[String]]): MMap[Int, Node] = {
 
+    def getOrCreate(m: MMap[Int, Node], id:Int):Node = {
+      m.getOrElse(id, new Node(id))
+    }
+
     @annotation.tailrec
     def go(ls: List[Array[String]], m: MMap[Int, Node]): MMap[Int, Node] = {
       ls match {
         case h :: t => {
           val l = h.toList
-          val n = m.getOrElse(l.head.toInt, createNode(l.head.toInt))
+          //first step
+          //we check wether map already includes this node
+          //if not we create and put it in the map
+          //we use Node's id as a key in the map
+          val n = getOrCreate(m, l.head.toInt)
+
+          //second step
+          //if new node has references to other nodes
+          //then we build these nodes as well
+          //and add their id's to @property `refs`
           if (l.size > 1) {
-            val n1 = m.getOrElse(l.last.toInt, createNode(l.last.toInt))
+            val n1 = getOrCreate(m, l.last.toInt)
             n.add(l.last.toInt)
             m.+=(l.last.toInt -> n1)
           }
+
+          //third step we put node in the map with updated `refs`
           m.+=(l.head.toInt -> n)
           go(t, m)
         }
         case Nil => m
       }
     }
+
     go(ls.toList, MMap[Int, Node]())
   }
 
@@ -82,6 +98,12 @@ object Parse {
     var marked = 0
     val keys = m.keySet.toList
     val iter = m.iterator
+
+
+    /**
+      * TODO: Rewrite this function as pure function
+      *
+      */
 
     def mark(id: Int, graphId: Int): Unit = {
       m.get(id) match {
@@ -108,23 +130,11 @@ object Parse {
     }
 
     //uncomment to see the nodes
-    m.foreach(x => {
-      println(x._2)
-    })
+//    m.foreach(x => {
+//      println(x._2)
+//    })
 
     count
-  }
-
-
-  /**
-    * Just util function.
-    *
-    * @param x :Int
-    * @return Node
-    */
-
-  def createNode(x: Int): Node = {
-    new Node(x)
   }
 
 }
