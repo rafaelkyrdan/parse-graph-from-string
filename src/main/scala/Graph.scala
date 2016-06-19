@@ -8,13 +8,12 @@ package main.scala
 
 
 class Graph {
-  var nodes: Set[Node] = Set()
-
-  def apply: Graph = new Graph()
+  private var nodes: Set[Node] = Set()
 
   def add(n: Node) = {
-    this.nodes += n
+    nodes += n
   }
 
   override def toString = s"Graph($nodes)"
 }
+
